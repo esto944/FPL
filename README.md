@@ -1,281 +1,182 @@
-# Fantasy Premier League Data Analysis
+# Fantasy Premier League (FPL) Player Price Tier Analysis
 
-This project analyzes Fantasy Premier League (FPL) player performance using Python, data analysis, and visualization tools.
+## Overview
 
-The goal is to discover:
-- Top-performing players
-- Undervalued players
-- Team trends
-- Predictive insights for smarter FPL decisions
+This project analyzes Fantasy Premier League (FPL) player performance across different price tiers and playing positions. The main objective is to explore how player cost relates to total fantasy points and whether certain positions provide better value within low, middle, and premium price categories.
+
+The analysis uses Python data science tools to clean, categorize, and visualize FPL player data.
 
 ---
 
-# Project Preview
+# Project Goal
 
-## Top 10 Players by Total Points
+Create a box plot visualization showing the distribution of total fantasy points for different player positions across three price tiers:
 
-![Top Players](<img width="850" height="547" alt="image" src="https://github.com/user-attachments/assets/9d136cb1-824c-486f-8714-80a5ab466304" />
-)
+* Low
+* Middle
+* Premium
 
-This graph shows the players with the highest total FPL points.
+This helps identify:
 
----
-
-## Player Price vs Total Points
-
-![Price vs Points](images/price_vs_points.png)
-
-This scatter plot helps identify undervalued players by comparing player cost to points earned.
+* Which positions perform best at different price levels
+* How consistent player performance is within each tier
+* Potential value picks in Fantasy Premier League
 
 ---
 
-## Goals by Position
+# Technologies Used
 
-![Goals by Position](images/goals_by_position.png)
-
-This graph compares goals scored by different player positions.
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Plotly
+* Jupyter Notebook / Google Colab
 
 ---
 
-# Tools Used
+# Dataset
 
-- Python
-- Pandas
-- Matplotlib
-- Jupyter Notebook
+The dataset contains Fantasy Premier League player statistics, including:
+
+* Player position
+* Player cost
+* Total fantasy points
+* Team information
+* Performance metrics
+
+Typical positions include:
+
+* Goalkeeper (GK)
+* Defender (DEF)
+* Midfielder (MID)
+* Forward (FWD)
 
 ---
 
 # Project Structure
 
 ```text
-fpl-analysis/
+FPL-Analysis/
 │
-├── data/
-│   └── players.csv
-│
-├── images/
-│   ├── top_players.png
-│   ├── price_vs_points.png
-│   └── goals_by_position.png
-│
-├── notebooks/
-│   └── FPL_fixed.ipynb
-│
-├── README.md
-├── requirements.txt
-└── .gitignore
+├── FPL.ipynb                # Main analysis notebook
+├── README.md                # Project documentation
+├── data/                    # Dataset files
+├── images/                  # Visualizations and charts
+└── requirements.txt         # Python dependencies
 ```
+
+---
+
+# Analysis Workflow
+
+## 1. Data Cleaning
+
+* Load FPL dataset
+* Handle missing values
+* Prepare numerical columns
+
+## 2. Price Tier Categorization
+
+Players are grouped into three price categories based on cost:
+
+| Tier    | Price Range |
+| ------- | ----------- |
+| Low     | Below $5.0  |
+| Middle  | $5.0 – $7.5 |
+| Premium | Above $7.5  |
+
+## 3. Visualization
+
+A box plot is generated to compare:
+
+* Player positions
+* Price tiers
+* Distribution of total points
+
+The visualization helps reveal:
+
+* Median performance
+* Performance spread
+* Outliers
+* Value efficiency by position
+
+---
+
+# Key Findings
+
+* Premium players generally score higher total fantasy points.
+* Midfielders and forwards tend to dominate the premium tier.
+* Defenders in the middle tier may provide strong value relative to cost.
+* Performance variability differs across positions and pricing categories.
+
+---
+
+# Example Visualization
+
+The project includes box plots comparing:
+
+* Goalkeepers
+* Defenders
+* Midfielders
+* Forwards
+
+across low, middle, and premium price brackets.
 
 ---
 
 # How to Run the Project
 
-## 1. Clone the Repository
+## Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/fpl-analysis.git
+git clone YOUR_GITHUB_REPOSITORY_LINK
 ```
 
-## 2. Open the Project
+## Install Dependencies
 
 ```bash
-cd fpl-analysis
+pip install pandas numpy matplotlib seaborn plotly
 ```
 
-## 3. Install Required Libraries
+## Open the Notebook
 
 ```bash
-pip install pandas matplotlib jupyter
+jupyter notebook FPL.ipynb
 ```
 
-## 4. Start Jupyter Notebook
-
-```bash
-jupyter notebook
-```
-
-Open:
-
-```text
-FPL_fixed.ipynb
-```
-
----
-
-# How the Graphs Were Made
-
-## Import Libraries
-
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-```
-
----
-
-# Load the Dataset
-
-```python
-df = pd.read_csv("data/players.csv")
-```
-
----
-
-# Graph 1 — Top Players
-
-## Code
-
-```python
-top_players = df.sort_values(by='total_points', ascending=False).head(10)
-
-plt.figure(figsize=(10,5))
-
-plt.bar(top_players['name'], top_players['total_points'])
-
-plt.title('Top 10 FPL Players')
-plt.xlabel('Player')
-plt.ylabel('Total Points')
-
-plt.xticks(rotation=45)
-
-plt.savefig("images/top_players.png")
-
-plt.show()
-```
-
-## Explanation
-
-This graph:
-- Sorts players by total points
-- Selects the top 10 players
-- Creates a bar chart
-- Saves the graph as an image
-
-The image is automatically stored inside:
-
-```text
-images/top_players.png
-```
-
----
-
-# Graph 2 — Price vs Points
-
-## Code
-
-```python
-plt.figure(figsize=(8,6))
-
-plt.scatter(df['now_cost'], df['total_points'])
-
-plt.title('Player Price vs Total Points')
-plt.xlabel('Player Price')
-plt.ylabel('Total Points')
-
-plt.savefig("images/price_vs_points.png")
-
-plt.show()
-```
-
-## Explanation
-
-This scatter plot compares:
-- Player price
-- Total points
-
-It helps identify:
-- Cheap high-performing players
-- Expensive underperforming players
-
----
-
-# Graph 3 — Goals by Position
-
-## Code
-
-```python
-position_goals = df.groupby('position')['goals_scored'].sum()
-
-position_goals.plot(kind='bar', figsize=(8,5))
-
-plt.title('Goals by Position')
-plt.xlabel('Position')
-plt.ylabel('Goals')
-
-plt.savefig("images/goals_by_position.png")
-
-plt.show()
-```
-
-## Explanation
-
-This graph:
-- Groups players by position
-- Adds total goals for each position
-- Creates a bar chart
-
-Useful for understanding:
-- Which positions score the most goals
-
----
-
-# How to Add Graphs to GitHub README
-
-## Step 1 — Save Graphs
-
-Always save graphs like this:
-
-```python
-plt.savefig("images/graph_name.png")
-```
-
----
-
-## Step 2 — Create an Images Folder
-
-Inside your project:
-
-```text
-fpl-analysis/
-└── images/
-```
-
-Put all graph images there.
-
----
-
-## Step 3 — Add Images to README
-
-Use this format:
-
-```markdown
-![Graph Name](images/graph_name.png)
-```
-
-Example:
-
-```markdown
-![Top Players](images/top_players.png)
-```
-
-GitHub will automatically display the graph.
+or open directly in Google Colab.
 
 ---
 
 # Future Improvements
 
-Possible future features:
-- Machine learning predictions
-- Expected goals (xG) analysis
-- Team strength analysis
-- Weekly transfer recommendations
-- Interactive dashboards
+Possible extensions for this project:
+
+* Predict player points using machine learning
+* Build an FPL recommendation system
+* Add interactive dashboards
+* Analyze player consistency over time
+* Compare expected points vs actual points
+
+---
+
+# Skills Demonstrated
+
+This project demonstrates:
+
+* Data cleaning
+* Exploratory Data Analysis (EDA)
+* Data visualization
+* Feature engineering
+* Python programming
+* Sports analytics
+* GitHub project organization
 
 ---
 
 # Author
 
-Est
+Created as part of a beginner data science portfolio project focused on sports analytics and Fantasy Premier League data analysis.
 
-Aspiring Data Scientist & Fantasy Premier League Analyst
