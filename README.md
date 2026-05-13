@@ -14,7 +14,8 @@ The goal is to discover:
 
 ## Top 10 Players by Total Points
 
-![Top Players](images/top_players.png)
+![Top Players](<img width="850" height="547" alt="image" src="https://github.com/user-attachments/assets/9d136cb1-824c-486f-8714-80a5ab466304" />
+)
 
 This graph shows the players with the highest total FPL points.
 
