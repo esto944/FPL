@@ -60,10 +60,12 @@ Typical positions include:
 ```text
 FPL-Analysis/
 │
+├── docs/
+├── README.md
+├── index.html               # Sweetviz EDA report
 ├── FPL.ipynb                # Main analysis notebook
 ├── README.md                # Project documentation
-├── data/                    # Dataset files
-├── images/                  # Visualizations and charts
+├── fplAnalytics-playerStautsData (1).csv 
 └── requirements.txt         # Python dependencies
 ```
 
